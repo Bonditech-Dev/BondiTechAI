@@ -1,0 +1,2 @@
+# BondiTechAI
+OCR reader
