@@ -1,0 +1,16 @@
+1. Create different documents:
+a. 1 page with case and letter code
+b. 2 pages with same case and letter code
+c. 10 pages with same case and letter code
+
+Create files:
+file with a
+file with a + c + b
+file with a + b
+
+
+Mail merge 100 pages, each page with a different form type and case number. 
+
+2. Test with multiple threads. 
+
+

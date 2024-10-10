@@ -1,0 +1,118 @@
+------------------------------------------------------------------------
+  Casenamics Barcode Router 
+  Copyright (C) 2018, Casenamics - All Rights Reserved
+------------------------------------------------------------------------
+
+This document assumes you have basic knowledge of Windows and Windows Services. 
+
+------------------------------------------------------------------------
+INTRODUCTION
+------------------------------------------------------------------------
+Barcode Router is an add-on module that easily allows an organization to extract the barcode values from 
+scanned documents, output documents with the corresponding barcode values, and then
+ using your own script (in Windows Powershell), route these documents based on the barcoded values. 
+
+------------------------------------------------------------------------
+PREREQUISITES
+------------------------------------------------------------------------
+Windows 8, 8.1, 10 (requires .NET Framework 4.5.2)
+
+Hardware:
+Processor 1 GHz, RAM 512 MB
+20 MB Disk Space
+
+
+------------------------------------------------------------------------
+INSTALLATION STEPS:
+------------------------------------------------------------------------
+
+Run the setup.exe to install both the Barcode Router Desktop and Barcode Router Windows service. 
+You can run this as a desktop application or in the background as a Windows service. 
+You can not run BOTH at the same time. 
+
+------------------------------------------------------------------------
+Step 1. Configure Barcode Router
+------------------------------------------------------------------------
+
+From your start menu, start up "Casenamics Barcode Router Desktop". 
+It will prompt for administrative rights as it will require access to modifying the Configuration file. 
+Click the menu, File, and then Settings. Specify the working folder location for Barcode Router.  
+It will automatically create the necessary folders once the Barcode Router is started. 
+Scanned documents will be scanned into the "input" subfolder. Documents here will be picked up by
+Barcode Router and processed. 
+
+------------------------------------------------------------------------
+Step 2. Configure Script
+------------------------------------------------------------------------
+
+When documents are read in, BarCode Router will generate a metadata file, with a .DAXML extension for each document that has different barcode values. 
+These metadata files are stored in the Input_Work folder. Once all documents are read and the metadata files are created, Barcode Router will then run a 
+script, processfiles.ps1, to process these documents. The install package includes this sample script file in the application "Scripts" 
+folder (i.e. c:\program files (x86)\casenamics\casenamics barcode router\scripts). 
+
+You can copy this same script to the folder, Scripts, that was created under the working folder in step 1 above. For example, if you specified
+the working folder as "c:\casenamics\scanning", then a folder,"c:\casenamics\scanning\scripts", will be created. 
+These folders are created once you start up the Barcode Router service. 
+Place the script, processfiles.ps1, into this folder. 
+
+You can edit this script and customize it to your own business rules. If you require assistance in creating this script or need a custom script,
+please contact Casenamics at support@casenamics.com for professional services.  
+
+Refer to Powershell documentation if you are not familiar with writing scripts in Powershell. 
+It assumes you are using 32-bit Powershell scripts. You can use Powershell or notepad to edit these scripts. 
+
+NOTE: Make sure the folder location for the script is set correctly in processfiles.ps1.
+
+------------------------------------------------------------------------
+Step 3. Start BarCode Router
+------------------------------------------------------------------------
+Open the Barcode Router Desktop, and click "Start". 
+
+If you would like to use the Windows service, open up the Windows service, and start up the service, "Casenamics Barcode Router".
+Set the service account to run under "local system account". This will give it proper access to allow it to poll a network folder.
+Start up the service and you are ready to process the documents. 
+
+------------------------------------------------------------------------
+Step 4. If there are issues, refer to log files in folders: 
+------------------------------------------------------------------------
+
+Log files are found in the following sources:
+
+Control Panel - Event Log - Application Log
+[scanning folder]\BarcodeRouter.Log
+[scanning folder]\Output_Error\ProcessFiles.Log <- Log From Powershell script, processfiles.ps1, if any. 
+
+------------------------------------------------------------------------
+Troubleshooting
+------------------------------------------------------------------------
+
+Q: Some of my barcode 39 labels are not scanning properly?
+A: Make sure the barcode is not overlapping with any lines. Barcode 39 is based on bars, so interference from other lines will impact the 
+ability to read in the barcode value. 
+
+Q: What do my scanner settings need to be at?
+A: The DPI should be at 600. You may want to adjust accordingly as this impacts your file size. 
+
+Q: My files get stuck in the [scanning folder]\Work folder.
+A: The script, processfiles.ps1, is responsible for moving the file out after it is processed. Check the script to make sure there are no errors. 
+
+Q: In the script, it is not opening a database connection 
+A: Check to make sure the proper 32-bit drivers are installed. Document Agent is a 32-bit application and uses 32-bit drivers. 
+
+Q: When starting the service, it starts and stops. 
+A: Make sure service is running under "local system account" privileges. 
+
+Q: When running the .PS1 (powershell script), you get the error, "running scripts is disabled on this machine."
+A: You must set the execution policy to allow powershell scripts to run. 
+
+	In powershell, to get the policies, enter the command:
+	Get-ExecutionPolicy -List
+
+	To set the ExecutionPolicy for the level and scope you want, enter the command:
+	Set-ExecutionPolicy -Scope LocalMachine Unrestricted
+
+Q: I have a network folder, but my files are not being processed.
+A: From Windows Event Viewer, goto "Application and Service Logs" and select "Casenamics Barcode Router". You can see if the correct folder is being polled.
+   In addition, make sure the service is running under the correct administrative privileges.
+   Normally, this is due to security and the account the service is running under does not have the rights to monitor the network folder. 
+

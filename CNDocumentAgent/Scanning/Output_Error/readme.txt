@@ -1,0 +1,1 @@
+It will fail to find case number if form type code is greater than 6. 
