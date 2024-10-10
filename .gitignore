@@ -482,3 +482,20 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/CNDocumentAgent/Bytescout
+/CNDocumentAgent/DocumentAgent/.svn
+/CNDocumentAgent/DocumentAgent/protos/google
+/CNDocumentAgent/DocumentAgent/References
+/CNDocumentAgent/DocumentAgentService/.svn
+/CNDocumentAgent/Scanning/Input
+/CNDocumentAgent/Scanning/Output_Error/Scratch
+/CNDocumentAgent/Scanning/Output_Success
+/CNDocumentAgent/Scanning/Testing/DCC/CA images/CA images
+/CNDocumentAgent/Scanning/Testing/DCC/Marlena Otlans30814
+/CNDocumentAgent/Scanning/Testing/Mailmerge
+/CNDocumentAgent/Scanning/Testing/Mailmerge results
+/CNDocumentAgent/Scanning/Testing/Sample Documents
+/CNDocumentAgent/Scanning/Testing/NY
+/CNDocumentAgent/Scanning3
+/CNDocumentAgent/Scripts_CA
+/CNDocumentAgent/UnitTest/UnitTestProject1/.svn
